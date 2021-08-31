@@ -1,5 +1,8 @@
 .singlePost {
   flex: 9;
+  
+  
+  pointer-events: none;
 }
 
 .singlePostWrapper {

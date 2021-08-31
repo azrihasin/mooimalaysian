@@ -98,7 +98,7 @@ app.get('/api/images/:name', function (req, res, next) {
     if (err) {
       next(err)
     } else {
-      console.log('Sent:', fileName)
+      // console.log('Sent:', fileName)
     }
   })
 })

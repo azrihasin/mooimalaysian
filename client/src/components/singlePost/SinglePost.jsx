@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./singlePost.css";
+import EditorJs from "@natterstefan/react-editor-js";
+import { EDITOR_JS_TOOLS } from "../../context/Constants";
+// import { data } from "../../data";
 
 export default function SinglePost() {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
-  const [post, setPost] = useState({});
+  const [data, setPost] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   const PF = "http://localhost:5000/images/";
   const { user } = useContext(Context);
   const [title, setTitle] = useState("");
@@ -18,36 +22,71 @@ export default function SinglePost() {
   useEffect(() => {
     const getPost = async () => {
       const res = await axios.get("/posts/" + path);
-      setPost(res.data);
-      setTitle(res.data.title);
-      setDesc(res.data.desc);
+
+     
+    
+    var data = { blocks: [] } 
+
+    res.data.block.map(item => {
+
+      data.blocks.push( 
+       item,
+     );
+      
+    console.log(item);
+  });
+
+    
+
+  
+
+       setPost(data);
+       setLoading(false);
+      // setTitle(res.data.title);
+      // setDesc(res.data.desc);
+     
+      
     };
     getPost();
-  }, [path]);
+  }, []);
 
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`/posts/${post._id}`, {
-        data: { username: user.username },
-      });
-      window.location.replace("/");
-    } catch (err) {}
-  };
 
-  const handleUpdate = async () => {
-    try {
-      await axios.put(`/posts/${post._id}`, {
-        username: user.username,
-        title,
-        desc,
-      });
-      setUpdateMode(false)
-    } catch (err) {}
-  };
+// console.log(post);
+console.log(data);
+
+  // const handleDelete = async () => {
+  //   try {
+  //     await axios.delete(`/posts/${post._id}`, {
+  //       data: { username: user.username },
+  //     });
+  //     window.location.replace("/");
+  //   } catch (err) {}
+  // };
+
+  // const handleUpdate = async () => {
+  //   try {
+  //     await axios.put(`/posts/${post._id}`, {
+  //       username: user.username,
+  //       title,
+  //       desc,
+  //     });
+  //     setUpdateMode(false)
+  //   } catch (err) {}
+  // };
+
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
+
 
   return (
-    <div className="singlePost">
-      <div className="singlePostWrapper">
+  
+    <div className="singlePost" >
+    
+   
+     <EditorJs  tools={EDITOR_JS_TOOLS}
+        data={data}  />;
+      {/* <div className="singlePostWrapper">
         {post.photo && (
           <img src={PF + post.photo} alt="" className="singlePostImg" />
         )}
@@ -101,7 +140,7 @@ export default function SinglePost() {
             Update
           </button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
