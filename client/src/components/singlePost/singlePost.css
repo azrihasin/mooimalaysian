@@ -1,8 +1,7 @@
 .singlePost {
   flex: 9;
+  margin-top: 5rem; 
   
-  
-  pointer-events: none;
 }
 
 .singlePostWrapper {
@@ -50,13 +49,6 @@
   cursor: pointer;
 }
 
-.singlePostIcon:first-child {
-  color: teal;
-}
-
-.singlePostIcon:last-child {
-  color: tomato;
-}
 
 .singlePostInfo {
   margin-bottom: 20px;
@@ -65,38 +57,22 @@
   font-size: 16px;
   font-family: "Varela Round", sans-serif;
   color: #b39656;
+
 }
 
-.singlePostDesc {
-  color: #666;
-  font-size: 18px;
-  line-height: 25px;
-}
 
-.singlePostDesc::first-letter {
-  margin-left: 20px;
-  font-size: 30px;
-  font-weight: 600;
-}
 
-.singlePostDescInput {
-  border: none;
-  color: #666;
-  font-size: 18px;
-  line-height: 25px;
-}
 
-.singlePostDescInput:focus {
-  outline: none;
-}
-.singlePostButton {
-  width: 100px;
-  border: none;
-  background-color: teal;
-  padding: 5px;
-  color: white;
-  border-radius: 5px;
+.updateButton{
+  position: absolute;
+  margin-left: 40px;
+  height: 2rem;
+  padding: 10px 20px;
+  border-radius: 6px;
+  border-width: 2px;
+  border-style: solid;
+  font-size: 12px;
+  font-family: 'Ubuntu', sans-serif;
   cursor: pointer;
-  align-self: flex-end;
-  margin-top: 20px;
+  transition: 0.25s ease;
 }

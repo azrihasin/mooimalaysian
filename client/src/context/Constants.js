@@ -1,5 +1,6 @@
 import CheckList from "@editorjs/checklist";
 import Code from "@editorjs/code";
+import Header from "@editorjs/header";
 import Delimiter from "@editorjs/delimiter";
 import Embed from "@editorjs/delimiter";
 import Image from "@editorjs/image";
@@ -16,6 +17,7 @@ import Warning from "@editorjs/warning";
   
 
 export const EDITOR_JS_TOOLS = {
+  header: Header,
   embed: Embed,
   table: Table,
   list: List,

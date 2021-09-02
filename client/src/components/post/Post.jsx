@@ -21,10 +21,21 @@ export default function Post({ post }) {
           </Link>
         </div>
         <p className="postDesc">{post.block[5].data.text} </p>
-        <p className="postUser">{post.username}</p>
-        <div className="postDate">
-            {new Date(post.createdAt).toDateString()}
+        <div className="author">
+          <div>
+            <img
+              src="http://localhost:5000/api/images/main.jpg"
+              alt=""
+              className="authorimg"
+            />
           </div>
+          <div className="authorDesc">
+            <p className="postUser">{post.username}</p>
+            <div className="postDate">
+              {new Date(post.createdAt).toDateString()}
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
