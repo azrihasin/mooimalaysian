@@ -96,7 +96,7 @@ export const data = {
         type: "image",
         data: {
           file: {
-            url: "https://capella.pics/6d8f1a84-9544-4afa-b806-5167d45baf7c.jpg"
+            url: "https://www.cancer.org/content/dam/cancer-org/images/photographs/single-use/espresso-coffee-cup-with-beans-on-table-restricted.jpg"
           },
           caption: "",
           withBorder: true,

@@ -1,6 +1,6 @@
 import "./settings.css";
-
-import { useContext, useState } from "react";
+import Button from "@material-ui/core/Button";
+import { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../context/Context";
 import axios from "axios";
 
@@ -10,25 +10,67 @@ export default function Settings() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
-
+  const [isLoading, setLoading] = useState(true);
   const { user, dispatch } = useContext(Context);
   const PF = "http://localhost:5000/images/"
 
+  const [picture, setPicture] = useState(null);
+  const [imgData, setImgData] = useState(null);
+  const [active, setActive] = useState(false);
+
+
+  const onChangePicture = e => {
+    if (e.target.files[0]) {
+      console.log("picture: ", e.target.files);
+      setPicture(e.target.files[0]);
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        // setImgData(reader.result);
+        setFile(reader.result);
+        setActive(true);
+      });
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }
+
+
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axios.get("/users/" + user._id);
+
+      console.log(res.data.profilePic);
+
+      if(res.data.profilePic == null){
+        setFile(false);
+      }else{
+        const images ="http://localhost:5000/api/images/"+res.data.profilePic;
+        setFile(images);
+      }      
+      setLoading(false);
+    };
+    getUser();
+  }, []);
+
+
+
+
   const handleSubmit = async (e) => {
+    console.log(picture);
     e.preventDefault();
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
       userId: user._id,
-      username,
-      email,
-      password,
+      profilePic: picture,
+  
     };
-    if (file) {
+    if (picture) {
       const data = new FormData();
-      const filename = Date.now() + file.name;
+      const filename = Date.now() + picture.name;
       data.append("name", filename);
-      data.append("file", file);
+      data.append("file", picture);
       updatedUser.profilePic = filename;
+      console.log(updatedUser.profilePic);
       try {
         await axios.post("/upload", data);
       } catch (err) {}
@@ -41,6 +83,13 @@ export default function Settings() {
       dispatch({ type: "UPDATE_FAILURE" });
     }
   };
+
+  console.log(active);
+
+  if (isLoading) {
+    return <div className="App">Loading...</div>;
+  }
+
   return (
     <div className="settings">
       <div className="settingsWrapper">
@@ -52,20 +101,16 @@ export default function Settings() {
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? URL.createObjectURL(file) : PF+user.profilePic}
+              src={file ? file : "https://icons-for-free.com/iconfiles/png/512/human+male+profile+user+icon-1320196240448793481.png"}
               alt=""
             />
+             
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>
-            <input
-              type="file"
-              id="fileInput"
-              style={{ display: "none" }}
-              onChange={(e) => setFile(e.target.files[0])}
-            />
+            <input id="profilePic" type="file" onChange={onChangePicture} />
           </div>
-          <label>Username</label>
+          {/* <label>Username</label>
           <input
             type="text"
             placeholder={user.username}
@@ -81,17 +126,29 @@ export default function Settings() {
           <input
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-          />
-          <button className="settingsSubmit" type="submit">
-            Update
-          </button>
-          {success && (
+          /> */}
+
+        <Button
+          style={{
+            
+            width: "100px",
+            right: 0,
+          }}
+          disabled= {!active}
+          className="updateButton"
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
+          UPDATE
+        </Button> {success && (
             <span
               style={{ color: "green", textAlign: "center", marginTop: "20px" }}
             >
               Profile has been updated...
             </span>
           )}
+         
         </form>
       </div>
  

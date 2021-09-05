@@ -6,6 +6,7 @@ import { EDITOR_JS_TOOLS } from "../../context/Constants";
 import { data } from "../../data";
 import axios from "axios";
 import { Context } from "../../context/Context";
+import Button from "@material-ui/core/Button";
 
 
 
@@ -56,6 +57,8 @@ class Write extends Component {
   render() {
     return (
       <>
+      <div className="editButton">
+
       <form onSubmit={this.handleSubmit}>
         <label>
           Article category:
@@ -69,9 +72,21 @@ class Write extends Component {
         </label>
        
       </form>
-        <button onClick={this.onSave.bind(this)} type="button">
-          Save Content (check console output)
-        </button>
+
+      <Button
+          style={{
+            float: "right",
+          }}
+          className="doneButton"
+          onClick={this.onSave.bind(this)}
+          variant="contained"
+          color="primary"
+        >
+          Publish
+        </Button>
+      </div>
+      
+      
         <EditorJs
           editorInstance={instance => (this.editorInstance = instance)}
           tools={EDITOR_JS_TOOLS}
