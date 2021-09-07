@@ -1,0 +1,40 @@
+.authorHero {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  height: 30vh;
+  width: 600px;
+  position: relative;
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 20rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #FFD580;
+  padding: 3rem;
+}
+.authortext-container {
+  width: 70%;
+}
+.authorheader {
+  font-weight: 900;
+  font-size: 2rem;
+}
+.authorsnippet {
+  color: white;
+  font-weight: 500;
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+.authorimage {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+
+}
+
+
+
+@media (max-width: 500px) {
+  .authorHero {
+      height: 40vh;
+  }
+}
