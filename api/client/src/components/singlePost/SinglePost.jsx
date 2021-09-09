@@ -16,7 +16,7 @@ export default function SinglePost() {
   //GET POST FROM THE API
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("/posts/" + path);
+      const res = await axios.get("https://mooimalaysian.herokuapp.com/api/posts/" + path);
 
       var data = { blocks: [] };
 

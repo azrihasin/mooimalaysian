@@ -21,7 +21,7 @@ export default function Header() {
       </div>
      <img
         className="image"
-        src="http://localhost:5000/api/images/main.jpg"
+        src="https://mooimalaysian.herokuapp.com/api/images/main.jpg" 
         alt=""
       />
      

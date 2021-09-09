@@ -24,7 +24,7 @@ export default function Post({ post }) {
         <div className="author">
           <div>
             <img
-              src="http://localhost:5000/api/images/main.jpg"
+              src="https://mooimalaysian.herokuapp.com/api/images/main.jpg"
               alt=""
               className="authorImg"
             />

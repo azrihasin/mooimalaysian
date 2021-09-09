@@ -5,7 +5,7 @@ export default function Header() {
     <div class="authorHero container">
       <img
         className="authorimage"
-        src="http://localhost:5000/api/images/main.jpg"
+        src="https://mooimalaysian.herokuapp.com/api/images/main.jpg"
         alt=""
       />
       <div class="authortext-container">

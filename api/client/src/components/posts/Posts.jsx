@@ -9,6 +9,7 @@ export default function Posts({ posts }) {
       {posts.slice(0, 4).map((p) => (
         <Post post={p} />
       ))}
+      
     </div>
     </>
   );

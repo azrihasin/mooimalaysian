@@ -7,6 +7,7 @@ import "./home.css";
 import axios from "axios";
 import { useLocation } from "react-router";
 
+
 export default function Home() {
   const [posts, setPosts] = useState([]);
 
@@ -14,7 +15,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get("/posts" + search);
+      const res = await axios.get("https://mooimalaysian.herokuapp.com/api/posts" + search);
       const thePost = res.data;
       setPosts(thePost);
    

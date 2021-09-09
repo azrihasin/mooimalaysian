@@ -13,6 +13,7 @@ export default function Populars({ populars }) {
         <Popular popular={p} />
         </>
       ))}
+    
     </div>
     </>
   );

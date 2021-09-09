@@ -37,14 +37,14 @@ export default function Settings() {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("/users/" + user._id);
+      const res = await axios.get("https://mooimalaysian.herokuapp.com/api/users/" + user._id);
 
       console.log(res.data.profilePic);
 
       if(res.data.profilePic == null){
         setFile(false);
       }else{
-        const images ="http://localhost:5000/api/images/"+res.data.profilePic;
+        const images ="https://mooimalaysian.herokuapp.com/api/images/"+res.data.profilePic;
         setFile(images);
       }      
       setLoading(false);
@@ -72,11 +72,11 @@ export default function Settings() {
       updatedUser.profilePic = filename;
       console.log(updatedUser.profilePic);
       try {
-        await axios.post("/upload", data);
+        await axios.post("https://mooimalaysian.herokuapp.com/api/upload", data);
       } catch (err) {}
     }
     try {
-      const res = await axios.put("/users/" + user._id, updatedUser);
+      const res = await axios.put("https://mooimalaysian.herokuapp.com/api/users/" + user._id, updatedUser);
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {

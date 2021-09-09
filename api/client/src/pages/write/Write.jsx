@@ -43,7 +43,7 @@ class Write extends Component {
     };
 
     try {
-      const res = await axios.post("/posts", newPost);
+      const res = await axios.post("https://mooimalaysian.herokuapp.com/api/posts", newPost);
       window.location.replace("/post/" + res.data._id);  
     } catch (err) {};
  

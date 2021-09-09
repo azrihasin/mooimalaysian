@@ -39,7 +39,7 @@ export default function UpdateEditor({ data }) {
   async function handleSave() {
     const outputData = await instanceRef.current.save();
     try {
-      await axios.put(`/posts/${path}`, {
+      await axios.put(`https://mooimalaysian.herokuapp.com/api/posts/${path}`, {
         username: user.username,
         block: outputData.blocks,
         category: category,
@@ -54,7 +54,7 @@ export default function UpdateEditor({ data }) {
 // FOR DELETING THE POST
 async function handleDelete() {
     try {
-      await axios.delete(`/posts/${path}`, {
+      await axios.delete(`https://mooimalaysian.herokuapp.com/api/posts/${path}`, {
         data: { username: user.username },
       });
       window.location.replace("/");
