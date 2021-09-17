@@ -6,7 +6,6 @@ const Post = require("../models/Post");
 router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
 
-  console.log(newPost);
   try {
     const savedPost = await newPost.save();
     console.log(savedPost);
@@ -73,19 +72,17 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
+  
   const username = req.query.user;
-  const catName = req.query.cat;
+  const category = req.query.category;
+
   try {
     let posts;
     if (username) {
       posts = await Post.find({ username });
-    } else if (catName) {
-      posts = await Post.find({
-        category: {
-          $in: [catName],
-        },
-      });
-    } else {
+    } else if (category) {
+      posts = await Post.find({category});
+        } else {
       posts = await Post.find();
     }
     res.status(200).json(posts);
@@ -93,5 +90,7 @@ router.get("/", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
+
 
 module.exports = router;

@@ -12,9 +12,10 @@ const cors = require('cors')
 
 dotenv.config()
 
+
 app.use(cors())
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.json({limit: '50mb'}))
+app.use(express.urlencoded({ limit: '50mb',  extended: true, parameterLimit:50000 }))
 
 app.use('/images', express.static(path.join(__dirname, '/images')))
 
@@ -45,7 +46,6 @@ const imageStorage = multer.diskStorage({
 
 const imageUpload = multer({
   storage: imageStorage,
-
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(png|jpg)$/)) {
       // upload only png and jpg format
@@ -59,15 +59,14 @@ app.post(
   '/api/upload',
   imageUpload.single('image'),
   (req, res) => {
-    // res.send(req.file);
-
-    console.log(req.file.filename)
+    
     res.json({
       success: 1,
       file: {
-        url: `http://localhost:5000/api/images/${req.file.filename}`,
+        url: `https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/${req.file.filename}`,
         // ... and any additional fields you want to store, such as width, height, color, extension, etc
       },
+      filename:req.file.filename,
     })
   },
   (error, req, res, next) => {
@@ -75,6 +74,43 @@ app.post(
   },
 )
 
+// UPLOAD URL
+app.post('/api/urlUpload',function (req, res,next) {
+ 
+
+ 
+    res.json({
+      success: 1,
+      meta: {
+        "title" : "CodeX Team",
+        "description" : "Club of web-development, design and marketing. We build team learning how to build full-valued projects on the world market.",
+        "image" : {
+            "url" : 'https://www.youtube.com/watch?v=HRxNrY0m-N8'
+        }
+    },
+     
+    })
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+  },
+)
+
+
+//GET URL
+
+// app.get('/api/url/:name', function (req, res, next) {
+//   var options = {
+//     root: path.join('images'),
+//     dotfiles: 'deny',
+//     headers: {
+//       'x-timestamp': Date.now(),
+//       'x-sent': true,
+//     },
+//   }
+
+
+  //GET IMAGE
 app.get('/api/images/:name', function (req, res, next) {
   var options = {
     root: path.join('images'),
@@ -90,7 +126,7 @@ app.get('/api/images/:name', function (req, res, next) {
     if (err) {
       next(err)
     } else {
-      // console.log('Sent:', fileName)
+      
     }
   })
 })
@@ -122,6 +158,4 @@ const port = process.env.PORT || 5000
 
 app.listen(port, () => console.log(`Server started on PORT ${port}`))
 
-// app.listen("5000", () => {
-//   console.log("Backend is running.");
-// });
+

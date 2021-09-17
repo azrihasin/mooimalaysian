@@ -1,8 +1,10 @@
-import axios from "axios";
+ //import axios from "axios";
+ import axios from "../../context/Client";
 import { useContext, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
 import "./login.css";
+import "../../config";
 
 export default function Login() {
   const userRef = useRef();
@@ -13,7 +15,7 @@ export default function Login() {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("https://mooimalaysian.herokuapp.com/api/auth/login", {
+      const res = await axios.post("/api/auth/login", {
         username: userRef.current.value,
         password: passwordRef.current.value,
       });

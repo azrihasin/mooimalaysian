@@ -2,7 +2,12 @@ import "./settings.css";
 import Button from "@material-ui/core/Button";
 import { useContext, useState, useEffect, useRef } from "react";
 import { Context } from "../../context/Context";
-import axios from "axios";
+ //import axios from "axios";
+import axios from "../../context/Client";
+import "../../config";
+
+
+
 
 export default function Settings() {
   const [file, setFile] = useState(null);
@@ -12,7 +17,7 @@ export default function Settings() {
   const [success, setSuccess] = useState(false);
   const [isLoading, setLoading] = useState(true);
   const { user, dispatch } = useContext(Context);
-  const PF = "http://localhost:5000/images/"
+
 
   const [picture, setPicture] = useState(null);
   const [imgData, setImgData] = useState(null);
@@ -37,16 +42,12 @@ export default function Settings() {
 
   useEffect(() => {
     const getUser = async () => {
-      const res = await axios.get("https://mooimalaysian.herokuapp.com/api/users/" + user._id);
-
-      console.log(res.data.profilePic);
-
-      if(res.data.profilePic == null){
-        setFile(false);
-      }else{
-        const images ="https://mooimalaysian.herokuapp.com/api/images/"+res.data.profilePic;
+      const res = await axios.get("/api/users/" + user._id);
+   
+            
+        const images = res.data.profilePic;
         setFile(images);
-      }      
+      
       setLoading(false);
     };
     getUser();
@@ -61,22 +62,33 @@ export default function Settings() {
     dispatch({ type: "UPDATE_START" });
     const updatedUser = {
       userId: user._id,
-      profilePic: picture,
+      profilePic: "",
   
     };
     if (picture) {
       const data = new FormData();
+      let formData = new FormData();
+
+      formData.append("image",picture);
+
       const filename = Date.now() + picture.name;
       data.append("name", filename);
       data.append("file", picture);
-      updatedUser.profilePic = filename;
-      console.log(updatedUser.profilePic);
+      
+      
       try {
-        await axios.post("https://mooimalaysian.herokuapp.com/api/upload", data);
+        const name = await axios.post("/api/upload", formData);
+        
+
+      
+
+        updatedUser.profilePic = "http://localhost:5000/api/images/"+name.data.filename;
       } catch (err) {}
     }
     try {
-      const res = await axios.put("https://mooimalaysian.herokuapp.com/api/users/" + user._id, updatedUser);
+      const res = await axios.put( "/api/users/"+ user._id, updatedUser);
+      
+
       setSuccess(true);
       dispatch({ type: "UPDATE_SUCCESS", payload: res.data });
     } catch (err) {
@@ -101,14 +113,14 @@ export default function Settings() {
           <label>Profile Picture</label>
           <div className="settingsPP">
             <img
-              src={file ? file : "https://icons-for-free.com/iconfiles/png/512/human+male+profile+user+icon-1320196240448793481.png"}
+              src={file ? file : "https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/default-icon.png"}
               alt=""
             />
              
             <label htmlFor="fileInput">
               <i className="settingsPPIcon far fa-user-circle"></i>
             </label>
-            <input id="profilePic" type="file" onChange={onChangePicture} />
+            <input id="profilePic" type="file" onChange={onChangePicture} name="image" />
           </div>
           {/* <label>Username</label>
           <input
@@ -155,3 +167,5 @@ export default function Settings() {
     </div>
   );
 }
+
+

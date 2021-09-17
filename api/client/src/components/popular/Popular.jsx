@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 
 export default function Popular({ popular }) {
 
+
+  let blockImage = -1
+  let descBlock = -1
+
+  for(let index=0; index<popular.block.length;index++){
+    if(popular.block[index].type=="paragraph"){
+      descBlock= index;
+      break;
+    }
+  }
+
   return (
     <>
       <div className="post">
@@ -11,11 +22,11 @@ export default function Popular({ popular }) {
             <span className="postTitle">{popular.block[0].data.text}</span>
           </Link>
         </div>
-        <p className="postDesc">{popular.block[5].data.text} </p>
+        <p className="postDesc">{descBlock > 0 ? popular.block[descBlock].data.text : ''}</p>
         <div className="authorPopular">
           <div>
             <img
-              src="http://localhost:5000/api/images/main.jpg"
+              src={popular.profilePic}
               alt=""
               className="authorImgPopular"
             />

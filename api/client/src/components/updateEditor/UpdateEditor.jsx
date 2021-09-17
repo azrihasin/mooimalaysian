@@ -5,8 +5,10 @@ import { Context } from "../../context/Context";
 import Button from "@material-ui/core/Button";
 import { useLocation } from "react-router";
 import EditorJs from "react-editor-js";
-import axios from "axios";
+ //import axios from "axios";
+ import axios from "../../context/Client";
 import "./updateEditor.css";
+import "../../config";
 
 export default function UpdateEditor({ data }) {
   const location = useLocation();
@@ -39,7 +41,7 @@ export default function UpdateEditor({ data }) {
   async function handleSave() {
     const outputData = await instanceRef.current.save();
     try {
-      await axios.put(`https://mooimalaysian.herokuapp.com/api/posts/${path}`, {
+      await axios.put(`/api/posts/${path}`, {
         username: user.username,
         block: outputData.blocks,
         category: category,
@@ -54,7 +56,7 @@ export default function UpdateEditor({ data }) {
 // FOR DELETING THE POST
 async function handleDelete() {
     try {
-      await axios.delete(`https://mooimalaysian.herokuapp.com/api/posts/${path}`, {
+      await axios.delete(`/api/posts/${path}`, {
         data: { username: user.username },
       });
       window.location.replace("/");

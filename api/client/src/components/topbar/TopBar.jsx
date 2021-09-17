@@ -5,11 +5,12 @@ import "./topbar.css";
 
 export default function TopBar() {
   const { user, dispatch } = useContext(Context);
-  // const PF = "http://localhost:5000/api/images/"
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
   };
+
+  
   return (
     <div className="top">
       <div className="topLeft">
@@ -20,21 +21,22 @@ export default function TopBar() {
       </div>
       <div className="topCenter">
         <ul className="topList">
-          <li className="topListItem">
+        <li className="topListItem">
             <Link className="link" to="/">
               HOME
             </Link>
           </li>
           <li className="topListItem">
-            <Link className="link" to="/">
-              ABOUT
+            <Link className="link" to="/category/?category=Everything Malaysian">
+              EVERYTHING MALAYSIAN
             </Link>
           </li>
           <li className="topListItem">
-            <Link className="link" to="/">
-              CONTACT
+            <Link className="link" to="/category/?category=Global">
+              GLOBAL
             </Link>
           </li>
+          
           <li className="topListItem">
             <Link className="link" to="/write">
               WRITE
@@ -48,7 +50,7 @@ export default function TopBar() {
       <div className="topRight">
         {user ? (
           <Link to="/settings">
-            <img className="topImg" src="http://localhost:5000/api/images/main.jpg" alt="" />
+            <img className="topImg" src="https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/main.jpg"  alt="" />
           </Link>
         ) : (
           <ul className="topList">

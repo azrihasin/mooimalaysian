@@ -1,7 +1,9 @@
-import axios from "axios";
+ //import axios from "axios";
+ import axios from "../../context/Client";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./register.css";
+import "../../config";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -13,12 +15,14 @@ export default function Register() {
     e.preventDefault();
     setError(false);
     try {
-      const res = await axios.post("https://mooimalaysian.herokuapp.com/api/auth/register", {
+  
+      const res = await axios.post("/api/auth/register", {
         username,
         email,
         password,
-        profilePic:null,
+        profilePic:"https://www.pngitem.com/pimgs/m/146-1468843_profile-icon-orange-png-transparent-png.png",
       });
+      
       res.data && window.location.replace("/login");
     } catch (err) {
       setError(true);

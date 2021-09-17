@@ -1,10 +1,12 @@
-import axios from "axios";
+
 import { useEffect, useState} from "react";
 import { useLocation } from "react-router";
 // import { Link } from "react-router-dom";
 // import { Context } from "../../context/Context";
 import "./singlePost.css";
 import UpdateEditor from "../updateEditor/UpdateEditor";
+
+import axios from "../../context/Client";
 
 export default function SinglePost() {
   const location = useLocation();
@@ -16,7 +18,7 @@ export default function SinglePost() {
   //GET POST FROM THE API
   useEffect(() => {
     const getPost = async () => {
-      const res = await axios.get("https://mooimalaysian.herokuapp.com/api/posts/" + path);
+      const res = await axios.get("/api/posts/" + path);
 
       var data = { blocks: [] };
 

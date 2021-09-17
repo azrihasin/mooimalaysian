@@ -1,11 +1,17 @@
 import "./header.css";
+import "../../config";
 
 export default function Header() {
   return (
     <div class="Hero container">
+
+      <div className="mobileTopic"> <div className="square"></div>
+      <div><h1 class="headerMobile">Mooi Malaysian</h1></div></div>
+     
       <div class="text-container">
+        
         <div className="typewriter1">
-        <h1 class="header">Mooi </h1>
+        <h1 class="header0">Mooi </h1>
         </div>
         <div className="typewriter">
         <h1 class="header">Malaysian</h1>
@@ -21,7 +27,7 @@ export default function Header() {
       </div>
      <img
         className="image"
-        src="https://mooimalaysian.herokuapp.com/api/images/main.jpg" 
+        src="https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/main.jpg" 
         alt=""
       />
      

@@ -5,3 +5,13 @@
     /* margin-left: 10%;
     margin-right: 10%; */
 }
+
+@media only screen and (max-width: 600px) {
+    .posts{
+        display:grid;
+        grid-template-columns: 100%;
+        margin: 20px;
+        /* margin-left: 10%;
+        margin-right: 10%; */
+    }
+  }
