@@ -82,7 +82,7 @@ export default function Settings() {
 
       
 
-        updatedUser.profilePic = "http://localhost:5000/api/images/"+name.data.filename;
+        updatedUser.profilePic = "https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/"+name.data.filename;
       } catch (err) {}
     }
     try {

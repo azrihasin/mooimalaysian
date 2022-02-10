@@ -25,7 +25,6 @@ export default function Post({ post }) {
   }
 
 
-  console.log(post)
 
   return (
     <>
@@ -49,7 +48,7 @@ export default function Post({ post }) {
         </p>
         <div className="author">
           <div>
-            <img src={post.profilePic} alt="" className="authorImg" />
+            <img src={post.profilePic ? post.profilePic : "https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/default-icon.png"}alt="" className="authorImg" />
           </div>
           <div className="authorDesc">
             <p className="postUser">{post.username}</p>

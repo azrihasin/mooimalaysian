@@ -26,7 +26,7 @@ export default function Popular({ popular }) {
         <div className="authorPopular">
           <div>
             <img
-              src={popular.profilePic}
+              src={popular.profilePic ? popular.profilePic : "https://mooimalaysian-f535oyzjxa-as.a.run.app/api/images/default-icon.png"}
               alt=""
               className="authorImgPopular"
             />
